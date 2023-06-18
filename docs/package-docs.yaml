@@ -1,0 +1,296 @@
+swagger: "2.0"
+info:
+  title: Mott Package Event API
+  description: Package API helps to manage packages of the Mott in the Maya Portal .
+  version: "2.0.0"
+
+host: dev-apis.mogiio.com
+schemes:
+  - https
+
+securityDefinitions:
+  token:
+    type: apiKey
+    name: Authorization
+    in: header
+produces:
+  - application/json
+paths:
+  /packages:
+    post:
+      summary: Creates a new package.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Object body of the create new package event
+          schema:
+            type: object
+            required:
+              - name
+              - thumbnail
+              - description
+              - validity
+              - price
+              - currency
+      
+            properties:
+              name:
+                type: string
+              thumbnail:
+                type: string
+              description:
+                type: string
+              validity:
+                type: number
+              price:
+                type: number
+              currency:
+                type: string
+              status:
+                type: number
+
+      security:
+        - token: []
+
+      responses:
+        400:
+          description: Package with this name already exists
+        500:
+          description: Server error  
+    get:
+      summary: get all existing packages
+      description: This endpoint gets all packages
+      
+      security:
+        - token: []
+
+      responses:
+        200:
+          description: success
+        500:
+          description: Server error
+
+
+    put:
+      summary: Reorders package.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+      
+            properties:
+              packages:
+                type: array
+
+      security:
+        - token: []
+
+      responses:
+        201:
+          description: reordered successfully
+        500:
+          description: Server error
+          
+          
+
+  /packages/{id}:
+    get:
+      summary: get package
+      description: This endpoint gets package of specific id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: double
+
+      security:
+        - token: []
+
+      responses:
+        400:
+          description: Invalid package id
+        200:
+          description: success
+        500:
+          description: Server error        
+
+    delete:
+      summary: Delete package
+      description: This endpoint delete package by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: double
+
+      security:
+        - token: []
+
+      responses:
+        400:
+          description: invalid channel id
+        201:
+          description: deleted
+        500:
+          description: Server error 
+
+    put:
+      summary: update specific package 
+      description: This endpoint update a package by specific Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: double
+
+        - name: body
+          in: body
+          description: Object body of the update new package event
+          schema:
+            type: object
+            required:
+              - name
+              - thumbnail
+              - description
+              - validity
+              - price
+              - currency
+
+            properties:
+              name:
+                type: string
+              thumbnail:
+                type: string
+              description:
+                type: string
+              validity:
+                type: number
+              price:
+                type: number
+              currency:
+                type: string
+
+      security:
+        - token: []
+
+      responses:
+        400:
+          description: Package with this name already exists
+        400:
+          description: invalid channel id
+        201:
+          description: updated
+
+  /packages/{id}/activate:
+    put: 
+      summary: Activate package 
+      description: This endpoint activate a package by specific Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: double
+
+        - name: body
+          in: body
+          description: Object body of the activate package event
+          required: true
+          schema:
+            type: object
+            required:
+              - status
+
+            properties:
+              status:
+                type: number  
+      security:
+        - token: []
+
+      responses:        
+        400:
+          description: invalid channel id
+        201:
+          description: updated        
+  
+  
+  /packages/{id}/deactivate:
+    put: 
+      summary: Deactivate package 
+      description: This endpoint deactivate a package by specific Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: double
+
+        - name: body
+          in: body
+          description: Object body of the activate package event
+          required: true
+          schema:
+            type: object
+            required:
+              - status
+
+            properties:
+              status:
+                type: number
+
+      security:
+        - token: []
+
+      responses:        
+        400:
+          description: invalid channel id
+        201:
+          description: updated    
+          
+          
+definitions:
+  packageSchema:
+    properties:
+      name:
+        type: string
+      thumbnail:
+        type: string
+      description:
+        type: string
+      validity:
+        type: number
+      price:
+        type: number
+      currency:
+        type: string
+      status:
+        type: number
+      userId:
+        type: string
+      orgId:
+        type: string
+      appId:
+        type: string  
+      orderIndex:
+        type: number
+        
+        
+  status:
+    properties:
+      message:
+        type: string
+        description: Status message
+      code:
+        type: integer
+        description: Status code
+    example:
+      message: Your package created successfully.
+      code: 200

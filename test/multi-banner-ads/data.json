@@ -1,0 +1,22 @@
+{
+    "name": "Test Ad",
+    "thumbnail": "thumbnail",
+    "showHorizontal": true,
+    "type": "test_ad",
+    "showName": "my-test-ad",
+    "autoMove": true,
+    "delay": 1,
+    "ads": [{
+        "file": "file",
+        "link": "link",
+        "title": "title",
+        "description": "description",
+        "type": "type",
+        "status": 1
+      }],
+    "status": 1,
+    "orderIndex": 0,
+    "orgId": "634f84e61b565610c59cd43d",
+    "appId": "634f8540e713640008547cb9",
+    "userId": "634f84e61b565612339cd440"
+}

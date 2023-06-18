@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: FOLDERNAME-JK
+  namespace: NAMESPACE-JK
+  labels:
+    app: FOLDERNAME-JK
+spec:
+  selector:
+    matchLabels:
+      app: FOLDERNAME-JK
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: FOLDERNAME-JK
+    spec:
+      hostAliases:
+      - ip: "10.10.70.14"
+        hostnames:
+        - "mongodb-01"
+      - ip: "10.10.70.15"
+        hostnames:
+        - "mongodb-02"
+      - ip: "10.10.70.16"
+        hostnames:
+        - "mongodb-03"
+      containers:
+      - name: FOLDERNAME-JK
+        image: DOCKER-IMAGE-NAME
+        env:
+        - name: MONGO_DB_URL
+          value: "mongodb://mongodb-01,mongodb-02,mongodb-03/FOLDERNAME-JK-NAMESPACE-JK?replicaSet=rs0"
+        - name: JWT_BASE_URL
+          value: "https://HOSTNAME-JK/jwt/"
+        - name: GLOBAL_JWT
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: TOKEN
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: CPU-LIMIT-JK
+          requests:
+            cpu: CPU-REQ-JK
+      imagePullSecrets:
+      - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: FOLDERNAME-JK-svc
+  namespace: NAMESPACE-JK
+spec:
+  selector:
+    app: FOLDERNAME-JK
+  ports:
+    - port: 3000
+  #    nodePort: 30080
+  type: ClusterIP
+  #type : NodePort
+
+---
+
+#https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengsettingupingresscontroller.htm
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: FOLDERNAME-JK-ingress
+  namespace: NAMESPACE-JK
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - HOSTNAME-JK
+    secretName: SECRETNAME-JK
+  rules:
+  - host: HOSTNAME-JK
+    http:
+      paths:
+      # serve images from demo.images.io/images/
+      #- path: /images(/|$)(.*)
+      - path: /packages
+        pathType: Prefix
+        backend:
+          serviceName: FOLDERNAME-JK-svc
+          servicePort: 3000
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata: 
+  name: FOLDERNAME-JK-hpa
+  namespace: NAMESPACE-JK
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: FOLDERNAME-JK
+  minReplicas: 1
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 50

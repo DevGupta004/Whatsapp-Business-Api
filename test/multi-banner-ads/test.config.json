@@ -1,0 +1,6 @@
+{
+  "headers": {
+    "Content-Type": "application/json",
+    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFua2l0dHQubnRsMjhAZ21haWwuY29tIiwidXNlcklkIjoiNjM0Zjg0ZTYxYjU2NTYxMjMzOWNkNDQwIiwibW9iaWxlIjoiNzg5NTg3NjE0NyIsIm9yZ0lkIjoiNjM0Zjg0ZTYxYjU2NTYxMGM1OWNkNDNkIiwid2FjSWQiOiI2MzRmODU0MGU3MTM2NDAwMDg1NDdjYjkiLCJ2aWRBcHBJZCI6IjYzNGY4NTQwNGE2NDhlYjk2YjFjNDdhZCIsImlhdCI6MTY4NDIxODg0OSwiZXhwIjo2MzEzMDc0NjE4ODQ5fQ.Rg58Jh_wTJMRqw2Pw0i3WF1ZmhtCzQcahmvsPoH8Yso"
+  }
+}

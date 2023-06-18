@@ -1,0 +1,77 @@
+
+# @hostname = http://localhost:3000
+# @hostname = https://dev-apis.mogiio.com
+@hostname = https://dev-apis.mogiio.com
+
+@appid = 61a08e625fcfdd2152d764a2
+
+@authorization = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp5cnQ0MDdAZ21haWwuY29tIiwidXNlcklkIjoiNjIzMDE0YzQ4YzE0OWI0YzY0NjRlYTY4IiwibW9iaWxlIjoiOTg5OTU3MDM0MCIsIm9yZ0lkIjoiNjIzMDE0YzQ4YzE0OWIxYzljNjRlYTY1Iiwid2FjSWQiOiI2MjMwMTRmMzI5Njk2MzFiMDk1MWM1ZjgiLCJ2aWRlb0FwcElkIjoiNjIzMDE0ZjNhODcwM2U2MTFhOWIwOTM2IiwiaWF0IjoxNjQ4NjI3NDkxLCJleHAiOjYzMTMwMzkwMjc0OTF9.iNjZdRx5LTAFanshf3YEFUbLmoRZlrV6v9uLSKzG53Q
+
+@id = 61a7559e0ee302007d139d2a
+
+###
+GET {{hostname}}/packages/
+Content-Type: application/json
+Authorization: {{authorization}}
+
+###
+GET {{hostname}}/packages/{{id}}
+Content-Type: application/json
+Authorization: {{authorization}}
+
+
+###
+post {{hostname}}/packages/
+Content-Type: application/json
+Authorization: {{authorization}}
+
+{
+
+}
+
+###
+PUT {{hostname}}/packages/{{id}}
+Content-Type: application/json
+Authorization: {{authorization}}
+
+{
+
+}
+
+###
+PUT {{hostname}}/packages/{{id}}/activate
+Content-Type: application/json
+Authorization: {{authorization}}
+
+{
+
+}
+
+###
+PUT {{hostname}}/packages/{{id}}/deactivate
+Content-Type: application/json
+Authorization: {{authorization}}
+
+{
+
+}
+
+###
+PUT {{hostname}}/packages/
+Content-Type: application/json
+Authorization: {{authorization}}
+
+{
+
+}
+
+###
+DELETE {{hostname}}/packages/{{id}}/
+Content-Type: application/json
+Authorization: {{authorization}}
+
+{
+    
+}
+
+
