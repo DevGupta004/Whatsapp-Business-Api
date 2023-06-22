@@ -2,6 +2,8 @@ const {isValidObjectId} = require("../../lib/object-id");
 const {WhatsAppBusinessApi} = require("../../classes/multi-banner-ads");
 
 const updateMultiBannerAd = async (req, res, next) => {
+  console.log("Update multi-banner", req);
+
   try {
     if (isValidObjectId(req.params.id)) {
       const whatsAppBusinessApi = new WhatsAppBusinessApi(req.userData.wacId);

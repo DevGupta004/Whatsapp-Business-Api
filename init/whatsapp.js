@@ -18,12 +18,7 @@ const { createBot } = require('whatsapp-cloud-api');
     // Create a bot that can send messages
     const bot = createBot(from, token);
 
-    // Send text message
-    // const result = await bot.sendText(to, 'Hello world');
-
-    // Start express server to listen for incoming messages
-    // NOTE: See below under `Documentation/Tutorial` to learn how
-    // you can verify the webhook URL and make the server publicly available
+   
     await bot.startExpressServer({
         webhookVerifyToken: webhookVerifyToken,
         port: 3000,
@@ -41,6 +36,10 @@ const { createBot } = require('whatsapp-cloud-api');
         await bot.sendText(msg.from, 'Received your image!');
       }
     });
+
+    bot.on('event', async (event) => {
+      console.log("event", event);
+    })
   } catch (err) {
     console.log(err);
   }
